@@ -1,0 +1,6 @@
+include ':learnffmpeg'
+include ':hellolibs'
+include ':nativeactivity'
+include ':jnicallback'
+include ':app'
+rootProject.name = "NativeDoing"
