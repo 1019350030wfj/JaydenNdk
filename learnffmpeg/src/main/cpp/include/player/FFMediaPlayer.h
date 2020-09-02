@@ -7,6 +7,17 @@
 
 
 #include <jni.h>
+#include "decoder/VideoDecoder.h"
+#include "decoder/AudioDecoder.h"
+
+#define VIDEO_RENDER_OPENGL 0
+#define VIDEO_RENDER_ANWINDOW 1
+
+#define JAVA_PLAYER_EVENT_CALLBACK_API_NAME "playerEventCallback"
+
+#define MEDIA_PARAM_VIDEO_WIDTH         0x0001
+#define MEDIA_PARAM_VIDEO_HEIGHT        0x0002
+#define MEDIA_PARAM_VIDEO_DURATION      0x0003
 
 class FFMediaPlayer {
 public:
@@ -32,7 +43,11 @@ private:
     JavaVM *m_JavaVM = nullptr;
     jobject m_JavaObj = nullptr;
 
-//    VideoDe
+    VideoDecoder *mVideoDecoder = nullptr;
+    AudioDecoder *mAudioDecoder = nullptr;
+
+    VideoRender *mVideoRender = nullptr;
+    AudioRender *mAudioRender = nullptr;
 };
 
 

@@ -62,7 +62,7 @@ public:
 protected:
     void *mMsgContext = nullptr;
     MessageCallback mMsgCallback = nullptr;
-    virtual int Init(const char *url, AVMediaType mediaType);
+    virtual int init(const char *url, AVMediaType mediaType);
     virtual void unInit();
     virtual void onDecoderReady() = 0;
     virtual void onDecoderDone() = 0;
@@ -77,7 +77,7 @@ private:
 
     void startDecodingThread();
     void decodingLoop();
-    void updaetTimeStamp();
+    void updateTimeStamp();
     void avSync();
     int decodeOnePacket();
     static void doAvDecoding(DecoderBase *decoder);

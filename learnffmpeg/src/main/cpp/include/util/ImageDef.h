@@ -183,7 +183,7 @@ public:
                 }
             }
             fclose(fp);
-            fp = NULL:
+            fp = NULL;
         }
     }
 };

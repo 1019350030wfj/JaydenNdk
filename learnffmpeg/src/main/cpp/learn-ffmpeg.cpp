@@ -37,19 +37,52 @@ Java_com_meitu_learnffmpeg_media_FFMediaPlayer_native_1Init(JNIEnv *env, jobject
 JNIEXPORT void JNICALL
 Java_com_meitu_learnffmpeg_media_FFMediaPlayer_native_1Play(JNIEnv *env, jobject thiz,
                                                             jlong player_handle) {
-
+    LOGD("FFMediaPlayer::Play");
+    if (player_handle != 0) {
+       FFMediaPlayer *ffMediaPlayer = reinterpret_cast<FFMediaPlayer *> (player_handle);
+       ffMediaPlayer->play();
+    }
 }
 
 JNIEXPORT void JNICALL
 Java_com_meitu_learnffmpeg_media_FFMediaPlayer_native_1Pause(JNIEnv *env, jobject thiz,
                                                              jlong player_handle) {
-
+    if (player_handle != 0) {
+        FFMediaPlayer *ffMediaPlayer = reinterpret_cast<FFMediaPlayer *>(player_handle);
+        ffMediaPlayer->pause();
+    }
 }
 
 JNIEXPORT void JNICALL
 Java_com_meitu_learnffmpeg_media_FFMediaPlayer_native_1unInit(JNIEnv *env, jobject thiz,
                                                               jlong player_handle) {
+    if (player_handle != 0) {
+        FFMediaPlayer *ffMediaPlayer = reinterpret_cast<FFMediaPlayer *> (player_handle);
+        ffMediaPlayer->UnInit();
+    }
 
+}
+
+JNIEXPORT jlong JNICALL
+Java_com_meitu_learnffmpeg_media_FFMediaPlayer_native_1GetMediaParams(JNIEnv *env, jobject thiz,
+                                                                      jlong m_native_player_handle,
+                                                                      jint param_type) {
+    long value = 0;
+    if (m_native_player_handle != 0) {
+        FFMediaPlayer *ffMediaPlayer = reinterpret_cast<FFMediaPlayer *> (m_native_player_handle);
+        value = ffMediaPlayer->getMediaParams(param_type);
+    }
+    return value;
+}
+
+JNIEXPORT void JNICALL
+Java_com_meitu_learnffmpeg_media_FFMediaPlayer_native_1SeekToPosition(JNIEnv *env, jobject thiz,
+                                                                      jlong m_native_player_handle,
+                                                                      jfloat progress) {
+    if (m_native_player_handle != 0) {
+        FFMediaPlayer *ffMediaPlayer = reinterpret_cast<FFMediaPlayer *>(m_native_player_handle);
+        ffMediaPlayer->seekToPosition(progress);
+    }
 }
 
 JNIEXPORT jstring JNICALL

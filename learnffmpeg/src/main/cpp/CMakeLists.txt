@@ -9,6 +9,7 @@ set(libName learn-ffmpeg)
 
 # 导入相关头文件
 include_directories(${distributionDir}/ffmpeg/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/glm
         ${CMAKE_CURRENT_SOURCE_DIR}/include/util
         ${CMAKE_CURRENT_SOURCE_DIR}/include/player
         ${CMAKE_CURRENT_SOURCE_DIR}/include/player/decoder
@@ -22,7 +23,10 @@ link_directories(${distributionDir}/ffmpeg/lib/${ANDROID_ABI})
 # 源文件 .cpp .c
 file(GLOB src-files
         ${CMAKE_SOURCE_DIR}/source/player/decoder/*.cpp
-        ${CMAKE_SOURCE_DIR}/source/player/render/*.cpp
+        ${CMAKE_SOURCE_DIR}/source/render/*.cpp
+        ${CMAKE_SOURCE_DIR}/source/util/*.cpp
+        ${CMAKE_SOURCE_DIR}/source/render/audio/*.cpp
+        ${CMAKE_SOURCE_DIR}/source/render/video/*.cpp
         ${CMAKE_SOURCE_DIR}/source/*.cpp
         ${CMAKE_SOURCE_DIR}/*.cpp)
 

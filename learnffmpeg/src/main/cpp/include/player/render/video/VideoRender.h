@@ -10,7 +10,7 @@
 class VideoRender {
 public:
     virtual ~VideoRender(){}
-    virtual void Init(int videoWidth, int videoHeight, int *dstSize) = 0;
+    virtual void init(int videoWidth, int videoHeight, int *dstSize) = 0;
     virtual void renderVideoFrame(NativeImage *pImage) = 0;
     virtual void unInit() = 0;
 };

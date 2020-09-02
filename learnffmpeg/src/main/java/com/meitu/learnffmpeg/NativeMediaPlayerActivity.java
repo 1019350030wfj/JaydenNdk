@@ -2,6 +2,7 @@ package com.meitu.learnffmpeg;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -17,6 +18,14 @@ import androidx.core.app.ActivityCompat;
 import com.meitu.learnffmpeg.media.FFMediaPlayer;
 import com.meitu.learnffmpeg.media.MySurfaceView;
 
+import static com.meitu.learnffmpeg.media.FFMediaPlayer.MEDIA_PARAM_VIDEO_DURATION;
+import static com.meitu.learnffmpeg.media.FFMediaPlayer.MEDIA_PARAM_VIDEO_HEIGHT;
+import static com.meitu.learnffmpeg.media.FFMediaPlayer.MEDIA_PARAM_VIDEO_WIDTH;
+import static com.meitu.learnffmpeg.media.FFMediaPlayer.MSG_DECODER_DONE;
+import static com.meitu.learnffmpeg.media.FFMediaPlayer.MSG_DECODER_INIT_ERROR;
+import static com.meitu.learnffmpeg.media.FFMediaPlayer.MSG_DECODER_READY;
+import static com.meitu.learnffmpeg.media.FFMediaPlayer.MSG_DECODING_TIME;
+import static com.meitu.learnffmpeg.media.FFMediaPlayer.MSG_REQUEST_RENDER;
 import static com.meitu.learnffmpeg.media.FFMediaPlayer.VIDEO_RENDER_ANWINDOW;
 
 /**
@@ -60,7 +69,10 @@ public class NativeMediaPlayerActivity extends AppCompatActivity implements Surf
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 Log.d(TAG, "onStopTrackingTouch() called with: progress = [" + seekBar.getProgress() + "]");
-                mIsTouch = false;
+                if (mMediaPlayer != null) {
+                    mMediaPlayer.seekToPosition(seekBar.getProgress());
+                    mIsTouch = false;
+                }
             }
         });
     }
@@ -113,7 +125,7 @@ public class NativeMediaPlayerActivity extends AppCompatActivity implements Surf
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
+        mMediaPlayer.play();
     }
 
     @Override
@@ -122,7 +134,42 @@ public class NativeMediaPlayerActivity extends AppCompatActivity implements Surf
     }
 
     @Override
-    public void onPlayerEvent(int msgType, float msgValue) {
+    public void onPlayerEvent(final int msgType, final float msgValue) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                switch (msgType) {
+                    case MSG_DECODER_DONE:
+                    case MSG_REQUEST_RENDER:
+                    case MSG_DECODER_INIT_ERROR: {
+                        break;
+                    }
+                    case MSG_DECODER_READY: {
+                        onDecoderReady();
+                        break;
+                    }
+                    case MSG_DECODING_TIME: {
+                        if (!mIsTouch) {
+                            mySeekBar.setProgress((int) msgValue);
+                        }
+                        break;
+                    }
+                }
+            }
+        });
+    }
 
+    private void onDecoderReady() {
+        int videoHeight = (int) mMediaPlayer.getMediaParams(MEDIA_PARAM_VIDEO_HEIGHT);
+        int videoWidth = (int) mMediaPlayer.getMediaParams(MEDIA_PARAM_VIDEO_WIDTH);
+        if (videoHeight * videoWidth != 0) {
+            mySurfaceView.setAspectRatio(videoWidth, videoHeight);
+        }
+
+        int duration = (int) mMediaPlayer.getMediaParams(MEDIA_PARAM_VIDEO_DURATION);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mySeekBar.setMin(0);
+        }
+        mySeekBar.setMax(duration);
     }
 }
