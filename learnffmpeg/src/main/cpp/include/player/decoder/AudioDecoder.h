@@ -33,7 +33,7 @@ public:
         init(url, AVMEDIA_TYPE_AUDIO);
     }
 
-    ~AudioDecoder() {
+    virtual ~AudioDecoder() {
         unInit();
     }
 

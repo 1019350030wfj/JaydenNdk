@@ -264,7 +264,7 @@ int DecoderBase::decodeOnePacket() {
     }
     int result = av_read_frame(mAVFormatContext, mPacket);
     while(result == 0) {
-        if(mPacket->streamindex == mStreamIndex) {
+        if(mPacket->stream_index == mStreamIndex) {
             if(avcodec_send_packet(mAVCodecContext, mPacket) == AVERROR_EOF) {
                 //解码结束
                 result = -1;

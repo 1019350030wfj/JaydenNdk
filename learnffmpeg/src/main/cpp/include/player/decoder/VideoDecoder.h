@@ -6,6 +6,7 @@
 #define NATIVEDOING_VIDEODECODER_H
 
 extern "C" {
+#define __STDC_CONSTANT_MACROS
 #include <libavutil/imgutils.h>
 #include <libswscale/swscale.h>
 };

@@ -6,10 +6,10 @@
 #define NATIVEDOING_DECODERBASE_H
 
 extern "C" {
-#include <libavutil/time.h>
-#include <libavutil/frame.h>
-#include <libavformat/avformat.h>
 #include <libavcodec/avcodec.h>
+#include <libavformat/avformat.h>
+#include <libavutil/frame.h>
+#include <libavutil/time.h>
 };
 
 #include <thread>
