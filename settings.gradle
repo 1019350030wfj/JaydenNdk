@@ -1,3 +1,5 @@
+include ':libstasticandshare:gen-libs'
+include ':libstasticandshare'
 include ':learnffmpeg'
 include ':hellolibs'
 include ':nativeactivity'

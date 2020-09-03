@@ -15,6 +15,8 @@
             <option value="$PROJECT_DIR$/hellolibs" />
             <option value="$PROJECT_DIR$/jnicallback" />
             <option value="$PROJECT_DIR$/learnffmpeg" />
+            <option value="$PROJECT_DIR$/libstasticandshare" />
+            <option value="$PROJECT_DIR$/libstasticandshare/gen-libs" />
             <option value="$PROJECT_DIR$/nativeactivity" />
           </set>
         </option>
