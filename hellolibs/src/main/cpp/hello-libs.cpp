@@ -46,5 +46,16 @@ Java_com_meitu_hellolibs_NativeAndJava_javaCallNative(JNIEnv *env, jobject thiz,
     LOGI("wfj native access java static member staticValue:%d", staticValue);
     //=========== native 访问 java 静态变量 =================
 
-
+    //=====  通过 class 来访问非静态方法 需要自己构造一个实例 ===========
+    jclass class1 = env->FindClass("com/meitu/hellolibs/NativeAndJava");
+    // 获取 java类的 构造函数id
+    jmethodID constructed = env->GetMethodID(class1, "<init>", "()V");
+    // 通过构造函数方法id 创建一个实例
+    jobject nativeAndJava = env->NewObject(class1, constructed);
+    // 获取 非静态方法 id
+    jmethodID methodId = env->GetMethodID(class1, "nativeCallJava", "(Ljava/lang/String;)V");
+    // new 一个 string  用于传递给java
+    jstring nativeToJavaMsg = env->NewStringUTF("native to java");
+    // 调用java 方法
+    env->CallVoidMethod(nativeAndJava, methodId, nativeToJavaMsg);
 }
