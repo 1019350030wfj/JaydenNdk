@@ -18,6 +18,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val textView = findViewById<TextView>(R.id.textview)
         textView.text = stringFromJNI()
+
+        val nativeAndJava = NativeAndJava();
+        nativeAndJava.javaCallNative("java send msg to native!!")
     }
 
     private var jayden: Int = 1

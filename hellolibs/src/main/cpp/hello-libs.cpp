@@ -35,3 +35,16 @@ Java_com_meitu_hellolibs_MainActivity_stringFromJNI(JNIEnv *env, jobject thiz) {
     LOGI("calculation time: %" PRIu64, ticks);
     return env->NewStringUTF("Hello from JNI LIBS");
 }
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_meitu_hellolibs_NativeAndJava_javaCallNative(JNIEnv *env, jobject thiz, jstring msg) {
+    //=========== native 访问 java 静态变量 =================
+    jclass javaClass = env->GetObjectClass(thiz);
+    jfieldID staticField = env->GetStaticFieldID(javaClass, "sJayden", "I");
+    jint staticValue = env->GetStaticIntField(javaClass, staticField);
+
+    LOGI("wfj native access java static member staticValue:%d", staticValue);
+    //=========== native 访问 java 静态变量 =================
+
+
+}
