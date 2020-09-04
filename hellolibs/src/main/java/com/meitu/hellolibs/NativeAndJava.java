@@ -16,8 +16,9 @@ public class NativeAndJava {
         Log.d("wfj", "nativeCallJava msg:" + msg);
     }
 
-    public static void nativeCallJavaStaticMethod(String msg) {
+    public static String nativeCallJavaStaticMethod(String msg) {
         Log.d("wfj", "nativeCallJavaStaticMethod msg:" + msg);
+        return "java to native";
     }
 
     public native void javaCallNative(String msg);

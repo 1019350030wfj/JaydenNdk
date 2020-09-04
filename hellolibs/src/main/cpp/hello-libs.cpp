@@ -58,4 +58,17 @@ Java_com_meitu_hellolibs_NativeAndJava_javaCallNative(JNIEnv *env, jobject thiz,
     jstring nativeToJavaMsg = env->NewStringUTF("native to java");
     // 调用java 方法
     env->CallVoidMethod(nativeAndJava, methodId, nativeToJavaMsg);
+
+
+    //===== 访问 java 静态方法 ===========
+    jmethodID staticMethod = env->GetStaticMethodID(class1, "nativeCallJavaStaticMethod", "(Ljava/lang/String;)Ljava/lang/String;");
+    jstring receiveJavaMsg = static_cast<jstring>(env->CallStaticObjectMethod(class1, staticMethod,
+                                                                              env->NewStringUTF(
+                                                                                      "native call java with msg")));
+    // jstring to char*
+    const char* cstr = env->GetStringUTFChars(receiveJavaMsg, NULL);
+    LOGI("wfj %s", cstr);
+    //释放资源
+    env->ReleaseStringUTFChars(receiveJavaMsg, cstr);
+
 }
