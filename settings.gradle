@@ -2,7 +2,6 @@ include ':libstasticandshare:gen-libs'
 include ':libstasticandshare'
 include ':learnffmpeg'
 include ':hellolibs'
-include ':nativeactivity'
 include ':jnicallback'
 include ':app'
 rootProject.name = "NativeDoing"

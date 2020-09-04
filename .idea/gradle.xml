@@ -17,7 +17,6 @@
             <option value="$PROJECT_DIR$/learnffmpeg" />
             <option value="$PROJECT_DIR$/libstasticandshare" />
             <option value="$PROJECT_DIR$/libstasticandshare/gen-libs" />
-            <option value="$PROJECT_DIR$/nativeactivity" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
