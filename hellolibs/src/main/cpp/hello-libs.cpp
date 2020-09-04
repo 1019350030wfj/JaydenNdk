@@ -10,6 +10,8 @@
 #include <string>
 #include <android/log.h>
 
+#include "LearnPThread.h"
+
 #define LOGI(...) \
     ((void)__android_log_print(ANDROID_LOG_INFO, "hello-libs::", __VA_ARGS__))
 
@@ -71,4 +73,12 @@ Java_com_meitu_hellolibs_NativeAndJava_javaCallNative(JNIEnv *env, jobject thiz,
     //释放资源
     env->ReleaseStringUTFChars(receiveJavaMsg, cstr);
 
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_meitu_hellolibs_NativeThread_nativeCreateThread(JNIEnv *env, jobject thiz) {
+    LearnPThread *pThread = new LearnPThread();
+    pThread->createThreads();
+    delete pThread;
 }

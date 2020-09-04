@@ -21,6 +21,12 @@ class MainActivity : AppCompatActivity() {
 
         val nativeAndJava = NativeAndJava();
         nativeAndJava.javaCallNative("java send msg to native!!")
+
+
+        //创建native thread
+        NativeThread().apply {
+            createThread()
+        }
     }
 
     private var jayden: Int = 1

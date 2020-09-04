@@ -20,12 +20,14 @@ set_target_properties(lib_gperf PROPERTIES IMPORTED_LOCATION
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
 
-add_library(hello-libs SHARED hello-libs.cpp)
+add_library(hello-libs SHARED hello-libs.cpp
+            ${CMAKE_CURRENT_SOURCE_DIR}/source/LearnPThread.cpp)
 
 #include_directories 用来导入相关头文件
 target_include_directories(hello-libs PRIVATE
                            ${distributionDir}/gmath/include
-                           ${distributionDir}/gperf/include)
+                           ${distributionDir}/gperf/include
+                           ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # 将导入的库和自己的原生库关联起来
 target_link_libraries(hello-libs
