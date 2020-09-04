@@ -11,5 +11,11 @@ public class NativeThread {
         nativeCreateThread();
     }
 
+    public void mutexThread() {
+        nativeMutexThread();
+    }
+
     private native void nativeCreateThread();
+    private native void nativeMutexThread();
+
 }

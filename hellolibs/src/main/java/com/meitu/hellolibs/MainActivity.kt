@@ -2,6 +2,7 @@ package com.meitu.hellolibs
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
@@ -24,8 +25,13 @@ class MainActivity : AppCompatActivity() {
 
 
         //创建native thread
-        NativeThread().apply {
-            createThread()
+        val thread = NativeThread().apply {
+            createThread()//线程创建
+        }
+        //线程同步
+        val threadMutex = findViewById<Button>(R.id.threadMutex)
+        threadMutex.setOnClickListener {
+            thread.mutexThread()
         }
     }
 

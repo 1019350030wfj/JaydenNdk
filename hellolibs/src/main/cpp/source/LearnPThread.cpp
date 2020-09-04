@@ -33,6 +33,56 @@ void LearnPThread::createThreads() {
     for (int i = 0; i < NUM_THREADS; ++i) {
         //阻塞当前线程， 等待指定tid的线程结束，并获取线程返回值
         pthread_join(tids[i], &returnValue[i]);
-        LOGE("thread %s terminated", (char *)(returnValue[i]));
+        LOGE("thread %s terminated", (char *) (returnValue[i]));
     }
+}
+
+int globalCount = 0;
+//互斥锁
+pthread_mutex_t mutex;
+
+/**
+ * 模拟两个线程同时进入此方法
+ */
+void *asynRun(void *arg) {
+    LOGE("thread %s enter", (char *) arg);
+    // lock
+    pthread_mutex_lock(&mutex);
+    //取传入当前线程的参数
+    char *threadArg = (char *) arg;
+
+    for (int i = 0; i < 10; ++i) {
+        //休眠 200ms
+        usleep(200 * 1000);
+        globalCount++;
+        LOGE("%s thread %d, globalCount= %d",threadArg, i, globalCount);
+    }
+
+    //unlock
+    pthread_mutex_unlock(&mutex);
+
+    // 线程正常执行完成后的返回值
+    return threadArg;
+}
+
+//线程同步
+void LearnPThread::mutexThreads() {
+    LOGE("Main Thread");
+    //初始化互斥锁
+    pthread_mutex_init(&mutex, NULL);
+    pthread_t t1, t2;
+
+    //创建两个线程
+    pthread_create(&t1, NULL, asynRun, (void *) "NO.1");
+    pthread_create(&t2, NULL, asynRun, (void *) "NO.2");
+
+    void *returnValue[2];
+    pthread_join(t1, &returnValue[0]);
+    pthread_join(t2, &returnValue[1]);
+
+    LOGE("thread %s terminated", (char *) returnValue[0]);
+    LOGE("thread %s terminated", (char *) returnValue[1]);
+
+    //销毁互斥锁
+    pthread_mutex_destroy(&mutex);
 }

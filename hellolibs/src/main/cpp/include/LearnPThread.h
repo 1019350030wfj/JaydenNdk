@@ -21,6 +21,7 @@
 class LearnPThread {
 public:
     void createThreads();
+    void mutexThreads();
 };
 
 
