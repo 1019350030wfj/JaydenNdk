@@ -15,6 +15,16 @@
 
 extern "C" JNIEXPORT jstring JNICALL
 Java_com_meitu_hellolibs_MainActivity_stringFromJNI(JNIEnv *env, jobject thiz) {
+    //===========  native 访问 java 的成员变量
+    //通过 JNIEnv 和对象 instance 实例拿到 class
+    jclass javaClass = env->GetObjectClass(thiz);
+    // 获取属性 field id
+    jfieldID javaMember = env->GetFieldID(javaClass, "jayden", "I");
+    //通过field id 获取属性值
+    jint javaMemberValue = env->GetIntField(thiz, javaMember);
+    LOGI("wfj native access java member jayden:%d", javaMemberValue);
+    //===========  native 访问 java 的成员变量
+
     auto ticks = GetTicks();
     for (auto exp = 0; exp < 32; exp++) {
         volatile unsigned val = gpower(exp);

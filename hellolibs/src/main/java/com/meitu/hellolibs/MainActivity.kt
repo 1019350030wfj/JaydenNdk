@@ -19,4 +19,6 @@ class MainActivity : AppCompatActivity() {
         val textView = findViewById<TextView>(R.id.textview)
         textView.text = stringFromJNI()
     }
+
+    private var jayden: Int = 1
 }
