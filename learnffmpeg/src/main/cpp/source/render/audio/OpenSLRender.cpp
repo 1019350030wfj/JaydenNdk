@@ -76,6 +76,7 @@ void OpenSLRender::unInit() {
     }
 
     if (mEngineObj) {
+        // 释放引擎对象的资源
         (*mEngineObj)->Destroy(mEngineObj);
         mEngineObj = nullptr;
         mEngineEngine = nullptr;
@@ -101,18 +102,20 @@ void OpenSLRender::unInit() {
 int OpenSLRender::createEngine() {
     SLresult result = SL_RESULT_SUCCESS;
     do {
+        // 创建引擎对象
         result = slCreateEngine(&mEngineObj, 0, nullptr, 0, nullptr, nullptr);
         if (result != SL_RESULT_SUCCESS) {
             LOGE("OpenSLRender::createEngine slCreateEngine fail. result=%d", result);
             break;
         }
-
+        // 实例化
         result = (*mEngineObj)->Realize(mEngineObj, SL_BOOLEAN_FALSE);
         if (result != SL_RESULT_SUCCESS) {
             LOGE("OpenSLRender::createEngine Realize fail.result=%d", result);
             break;
         }
 
+        // 获取引擎对象接口
         result = (*mEngineObj)->GetInterface(mEngineObj, SL_IID_ENGINE, &mEngineEngine);
         if (result != SL_RESULT_SUCCESS) {
             LOGE("OpenSLRender::createEngine GetInterface fail.result=%d", result);
@@ -144,21 +147,33 @@ int OpenSLRender::createOutputMixer() {
 }
 
 int OpenSLRender::createAudioPlayer() {
+    //数据与简单缓冲队列定位器
     SLDataLocator_AndroidSimpleBufferQueue androidQueue = {SL_DATALOCATOR_ANDROIDBUFFERQUEUE, 2};
+    //PCM 数据源格式
     SLDataFormat_PCM pcm = {
-            SL_DATAFORMAT_PCM,
-            (SLuint32)2,
-            SL_SAMPLINGRATE_44_1,
+            SL_DATAFORMAT_PCM,//格式类型
+            (SLuint32)2,//通道数
+            SL_SAMPLINGRATE_44_1,//采样率
+            SL_PCMSAMPLEFORMAT_FIXED_16,//位宽
             SL_PCMSAMPLEFORMAT_FIXED_16,
-            SL_PCMSAMPLEFORMAT_FIXED_16,
-            SL_SPEAKER_FRONT_LEFT | SL_SPEAKER_FRONT_RIGHT,
-            SL_BYTEORDER_LITTLEENDIAN
+            SL_SPEAKER_FRONT_LEFT | SL_SPEAKER_FRONT_RIGHT,//通道屏蔽
+            SL_BYTEORDER_LITTLEENDIAN //字节顺序
     };
 
+    /**
+     * OpenSL ES 中的 SLDataSource 和 SLDataSink 结构体
+     * 主要用于构建Audio Player 和Recorder对象
+     * SLDataSource 表示音频数据来源的信息
+     * SLDataSink 表示音频数据的输出信息
+     */
 
+    //数据源
     SLDataSource slDataSource = {&androidQueue, &pcm};
 
+    // 针对数据接收器的输出混合定位器（混音器）
     SLDataLocator_OutputMix outputMix = {SL_DATALOCATOR_OUTPUTMIX, mOutputMixObj};
+
+    //输出
     SLDataSink slDataSink = {&outputMix, nullptr};
 
     const SLInterfaceID  ids[3] = {SL_IID_BUFFERQUEUE, SL_IID_EFFECTSEND, SL_IID_VOLUME};
@@ -167,6 +182,7 @@ int OpenSLRender::createAudioPlayer() {
     SLresult result;
 
     do {
+        // 创建AudioPlayer 对象
         result = (*mEngineEngine)->CreateAudioPlayer(mEngineEngine, &mAudioPlayerObj, &slDataSource, &slDataSink, 3, ids, req);
         if (result != SL_RESULT_SUCCESS) {
             LOGE("OpenSLRender::createAudioPlayer CreateAudioPlayer fail. result=%d", result);

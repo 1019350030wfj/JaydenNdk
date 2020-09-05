@@ -16,6 +16,17 @@
 
 #define MAX_QUEUE_BUFFER_SIZE 3
 
+/**
+ * Object和Interface 是 OpenSL ES 的两大基本概念。
+ *  - Interface 为每个对象提供一系列的基本功能操作
+ *  - 外部只能通过GetInterface来访问Object的Interface，才能使用Object提供的功能
+ *
+ *
+ * OpenSL ES的object有三个状态，分别是：
+ * SL_OBJECT_STATE_UNREALIZED， 不可用状态时，系统不会为其分配资源；
+ * SL_OBJECT_STATE_REALIZED, 当调用 realize方法后便进入此可用状态，此时对象的各个功能和资源才可用正常访问
+ * SL_OBJECT_STATE_SUSPENDED，当系统音频相关硬件被其他进程占用进入此状态，调用resume后恢复到此状态
+ */
 class OpenSLRender : public AudioRender {
 public:
     OpenSLRender(){}
