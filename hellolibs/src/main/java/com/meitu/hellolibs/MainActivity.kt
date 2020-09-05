@@ -33,6 +33,11 @@ class MainActivity : AppCompatActivity() {
         threadMutex.setOnClickListener {
             thread.mutexThread()
         }
+        //线程通信
+        val threadCommunicated = findViewById<Button>(R.id.threadCommunication)
+        threadCommunicated.setOnClickListener {
+            thread.threadCommunication()
+        }
     }
 
     private var jayden: Int = 1

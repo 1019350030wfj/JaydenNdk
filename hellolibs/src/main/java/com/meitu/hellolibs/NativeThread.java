@@ -15,7 +15,12 @@ public class NativeThread {
         nativeMutexThread();
     }
 
+    public void threadCommunication() {
+        nativeThreadCommunication();
+    }
+
     private native void nativeCreateThread();
     private native void nativeMutexThread();
+    private native void nativeThreadCommunication();
 
 }

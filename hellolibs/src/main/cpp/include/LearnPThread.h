@@ -17,6 +17,14 @@ pthread_mutex_lock 加锁，需传入互斥锁的指针。
 pthread_mutex_unlock 解锁，需传入互斥锁的指针
  */
 
+/**
+ * 线程间通信相关 API ：
+ * pthread_cond_t 条件变量，条件变量是线程同步的一种手段，使线程可以休眠等待某种条件出现。
+pthread_cond_signal 发送一个信号给另外一个正在处于阻塞等待状态的线程，原本这两个线程竞争同一个 mutex lock 。
+pthread_cond_wait 使当前线程处于阻塞状态，直到接收到其他线程发送对应的 cond_signal 。
+pthread_cond_init 初始化条件变量。
+pthread_cond_destroy 销毁条件变量。
+ */
 
 #ifndef NATIVEDOING_LEARNPTHREAD_H
 #define NATIVEDOING_LEARNPTHREAD_H
@@ -32,6 +40,7 @@ class LearnPThread {
 public:
     void createThreads();
     void mutexThreads();
+    void threadCommunication();
 };
 
 

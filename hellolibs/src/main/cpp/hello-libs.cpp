@@ -90,3 +90,11 @@ Java_com_meitu_hellolibs_NativeThread_nativeMutexThread(JNIEnv *env, jobject thi
     pThread->mutexThreads();
     delete pThread;
 }
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_meitu_hellolibs_NativeThread_nativeThreadCommunication(JNIEnv *env, jobject thiz) {
+    LearnPThread *pThread = new LearnPThread();
+    pThread->threadCommunication();
+    delete pThread;
+}
