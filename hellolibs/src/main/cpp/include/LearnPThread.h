@@ -8,6 +8,16 @@
 //pthread_exit 退出当前线程，并且可以设置当前线程的返回值。
 //pthread_cancel 终止当前线程。
 
+/**
+ * 线程同步相关 API :
+pthread_mutex_t 互斥锁。
+pthread_mutex_init 初始化互斥锁，需传入互斥锁的指针。
+pthread_mutex_destroy 销毁互斥锁，需传入互斥锁的指针。
+pthread_mutex_lock 加锁，需传入互斥锁的指针。
+pthread_mutex_unlock 解锁，需传入互斥锁的指针
+ */
+
+
 #ifndef NATIVEDOING_LEARNPTHREAD_H
 #define NATIVEDOING_LEARNPTHREAD_H
 
