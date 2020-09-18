@@ -1,3 +1,4 @@
+include ':audiovideo'
 include ':libstasticandshare:gen-libs'
 include ':libstasticandshare'
 include ':learnffmpeg'
