@@ -29,6 +29,7 @@
         app:layout_constraintTop_toBottomOf="@id/audioTrackPlayPcm" />
 
     <Button
+        android:id="@+id/stopOpenSLESPlayPcm"
         android:onClick="stopOpenSLESPlayPcm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,5 +38,27 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/openSLESPlayPcm" />
+
+    <Button
+        android:id="@+id/stopRecordPcm"
+        android:onClick="stopRecordPcm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="stopRecordPcm"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/stopOpenSLESPlayPcm" />
+
+    <Button
+        android:id="@+id/startRecordPcm"
+        android:onClick="startRecordPcm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="startRecordPcm"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/stopRecordPcm" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

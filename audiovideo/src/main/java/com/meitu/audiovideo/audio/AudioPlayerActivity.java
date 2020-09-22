@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.meitu.audiovideo.R;
+import com.meitu.audiovideo.Utils;
 
 /**
  * 音频播放
@@ -24,12 +25,20 @@ public class AudioPlayerActivity extends AppCompatActivity {
      */
     private AudioTracker mAudioTracker;
     private final String PATH = Environment.getExternalStorageDirectory() + "_test.pcm";
+    private AudioRecorder mAudioRecorder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio_player);
         mAudioTracker = new AudioTracker(this);
+        mAudioRecorder = new AudioRecorder();
+        mAudioRecorder.setOnAudioFrameCaptureListener(new AudioRecorder.OnAudioFrameCaptureListener() {
+            @Override
+            public void onAudioFrameCaptured(byte[] audioData) {
+                Utils.writePCM(audioData, PATH);
+            }
+        });
     }
 
     /**
@@ -80,7 +89,22 @@ public class AudioPlayerActivity extends AppCompatActivity {
     public void stopOpenSLESPlayPcm(View view) {
         Log.d("wfj", "OpenSL ES stop play PCM!");
         nativeStopPcm();
+    }
 
 
+    /**
+     * 开始录制音频
+     * @param view
+     */
+    public void startRecordPcm(View view) {
+        mAudioRecorder.startCapture();
+    }
+
+    /**
+     * 停止录制音频
+     * @param view
+     */
+    public void stopRecordPcm(View view) {
+        mAudioRecorder.stopCapture();
     }
 }
