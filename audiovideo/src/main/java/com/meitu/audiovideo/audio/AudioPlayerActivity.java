@@ -2,6 +2,7 @@ package com.meitu.audiovideo.audio;
 
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -15,6 +16,9 @@ import com.meitu.audiovideo.R;
  * Date: 2020/9/18 3:37 PM
  */
 public class AudioPlayerActivity extends AppCompatActivity {
+    static {
+        System.loadLibrary("audiovideo");
+    }
     /**
      * PCM 播放实例
      */
@@ -54,5 +58,29 @@ public class AudioPlayerActivity extends AppCompatActivity {
             mAudioTracker.release();
             mAudioTracker = null;
         }
+        nativeStopPcm();
+    }
+
+    private native void nativePlayPcm(String pcmPath);
+    private native void nativeStopPcm();
+
+    /**
+     * 使用OpenSLES播放 PCM
+     * @param view
+     */
+    public void openSLESPlayPcm(View view) {
+        Log.d("wfj", "OpenSL ES play PCM!");
+        nativePlayPcm(PATH);
+    }
+
+    /**
+     * 停止使用OpenSLES播放 PCM
+     * @param view
+     */
+    public void stopOpenSLESPlayPcm(View view) {
+        Log.d("wfj", "OpenSL ES stop play PCM!");
+        nativeStopPcm();
+
+
     }
 }

@@ -11,12 +11,28 @@ android {
         versionCode 1
         versionName "1.0"
 
+        externalNativeBuild {
+            cmake {
+                abiFilters 'armeabi-v7a' //指定当前项目，只编译arm v7a 的cpu 平台架构
+            }
+        }
+        ndk{
+            abiFilters 'armeabi-v7a'
+
+        }
     }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            version '3.10.2'
+            path 'src/main/cpp/CMakeLists.txt'
         }
     }
 }
