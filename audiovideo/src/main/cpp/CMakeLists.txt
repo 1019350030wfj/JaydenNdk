@@ -1,11 +1,13 @@
 cmake_minimum_required(VERSION 3.4.1)
 
 #音频渲染 路径
-set(OpenSL ${CMAKE_CURRENT_SOURCE_DIR}/opensl)
+set(OpenSL ${CMAKE_SOURCE_DIR}/opensl)
+#视频渲染 路径
+set(OpenGL ${CMAKE_SOURCE_DIR}/gles)
 
 
 #批量添加自己编写的 cpp文件， 不要把 *.h 加入进来
-file(GLOB ALL_CPP ${OpenSL}/*.cpp)
+file(GLOB ALL_CPP ${OpenSL}/*.cpp ${OpenGL}/*.cpp)
 
 #添加自己编写的cpp 源文件生成动态库
 add_library(audiovideo SHARED ${ALL_CPP})
@@ -19,6 +21,10 @@ target_link_libraries(
         audiovideo
         #音频播放
         OpenSLES
+
+        #视频渲染
+        EGL
+        GLESv2
 
         #添加本地库
         android

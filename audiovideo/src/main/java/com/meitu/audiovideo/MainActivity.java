@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.meitu.audiovideo.audio.AudioPlayerActivity;
+import com.meitu.audiovideo.video.VideoPlayerActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,5 +22,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startVideo(View view) {
+        startActivity(new Intent(this, VideoPlayerActivity.class));
     }
 }
