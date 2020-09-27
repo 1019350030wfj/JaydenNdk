@@ -356,6 +356,26 @@ public class Camera2Fragment extends Fragment {
         }
     }
 
+    public String getCameraId() {
+        return mCameraId;
+    }
+
+    public String[] getSupportCameraIds() {
+        return mSupportCameraIds;
+    }
+
+    public void updateCameraId(String cameraId) {
+        for (String id : mSupportCameraIds) {
+            if (id.equals(cameraId) && !mCameraId.equals(cameraId)) {
+                mCameraId = cameraId;
+                getCameraInfo(mCameraId);
+                stopCamera();
+                startCamera();
+                break;
+            }
+        }
+    }
+
     public void stopCamera() {
 //        if (mPreviewImageReader != null) {
 //            mPreviewImageReader.setOnImageAvailableListener(null, null);

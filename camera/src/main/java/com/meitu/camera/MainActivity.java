@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -65,5 +66,24 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return true;
+    }
+
+    /**
+     * 切换前后置
+     * @param view
+     */
+    public void switchCameraFace(View view) {
+        if (camera2Fragment != null) {
+            String cameraId = camera2Fragment.getCameraId();
+            String[] cameraIds = camera2Fragment.getSupportCameraIds();
+            if (cameraIds != null) {
+                for (int i = 0; i < cameraIds.length; i++) {
+                    if (!cameraIds[i].equals(cameraId)) {
+                        camera2Fragment.updateCameraId(cameraIds[i]);
+                        break;
+                    }
+                }
+            }
+        }
     }
 }
