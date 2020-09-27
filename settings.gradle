@@ -1,3 +1,4 @@
+include ':camera'
 include ':audiovideo'
 include ':libstasticandshare:gen-libs'
 include ':libstasticandshare'

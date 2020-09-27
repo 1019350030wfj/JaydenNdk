@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/audiovideo" />
+            <option value="$PROJECT_DIR$/camera" />
             <option value="$PROJECT_DIR$/hellolibs" />
             <option value="$PROJECT_DIR$/jnicallback" />
             <option value="$PROJECT_DIR$/learnffmpeg" />
