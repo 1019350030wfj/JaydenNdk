@@ -11,12 +11,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import com.meitu.camera.view.Camera2ShutterBtn;
+import com.meitu.camera.view.CameraOprCallback;
+
+public class MainActivity extends AppCompatActivity implements CameraOprCallback {
 
     private Camera2Fragment camera2Fragment;
 
     private static final String TAG = "MainActivity";
     private static final String[] REQUEST_PERMISSIONS = {
+            Manifest.permission.RECORD_AUDIO,
             Manifest.permission.CAMERA,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
     };
@@ -26,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Camera2ShutterBtn captureIv = findViewById(R.id.capture_iv);
+        captureIv.setCameraOprCallback(this);
     }
 
     @Override
@@ -84,6 +90,25 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
+        }
+    }
+
+    @Override
+    public void capturePic() {
+
+    }
+
+    @Override
+    public void recordVideo() {
+        if (camera2Fragment != null) {
+            camera2Fragment.startRecord();
+        }
+    }
+
+    @Override
+    public void stopRecord(boolean save) {
+        if (camera2Fragment != null) {
+            camera2Fragment.stopRecord(true);
         }
     }
 }
