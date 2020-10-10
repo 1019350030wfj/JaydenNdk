@@ -1,24 +1,22 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "30.0.1"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.meitu.audiovideo"
+        applicationId "com.meitu.opengl"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
 //        externalNativeBuild {
 //            cmake {
-//                abiFilters 'armeabi-v7a' //指定当前项目，只编译arm v7a 的cpu 平台架构
+//                cppFlags "-std=c++11 -frtti -fexception"
 //            }
 //        }
-//        ndk{
-//            abiFilters 'armeabi-v7a'
-//
+//        ndk {
+//            abiFilters "arm64-v8a","armeabi-v7a"
 //        }
     }
 
@@ -29,10 +27,9 @@ android {
         }
     }
 
-    externalNativeBuild {
+    externalNativeBuild{
         cmake {
-            version '3.10.2'
-            path 'src/main/cpp/CMakeLists.txt'
+            path "src/main/cpp/CMakeLists.txt"
         }
     }
 }
@@ -41,5 +38,4 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-
 }
