@@ -1,9 +1,15 @@
 cmake_minimum_required(VERSION 3.4.1)
 
-include_directories(util)
+include_directories(util
+                    glm
+                    render
+                    sample)
 
 file(GLOB src-files
-        ${CMAKE_SOURCE_DIR}/*.cpp)
+        ${CMAKE_SOURCE_DIR}/*.cpp
+        ${CMAKE_SOURCE_DIR}/sample/*.cpp
+        ${CMAKE_SOURCE_DIR}/util/*.cpp
+        ${CMAKE_SOURCE_DIR}/render/*.cpp)
 
 add_library(native-render
             SHARED
